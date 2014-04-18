@@ -12,7 +12,7 @@ Running Android Espresso instrumentation tests on a build server can be a big ha
 ###Building the app
 
 ```
-./gradlew assembleRelease
+./gradlew assembleDebug
 ```
 The built APK can be found in `.\app\build\apk\android_emulator_hacks-1.1.apk`.
 
@@ -39,4 +39,3 @@ This will make sure the keyguard is off (which sometimes, randomly, seem to be o
 
 1. Emulators started without `--no-audio` will randomly fail. Causing a crash in package acore, which will cause the tests to fail.
 2. Emulator images without Google Services show a "You need to install google play services" dialog, which causes tests to fail. (We used spoon to take screenshots to debug this particular bug, but spoon grabs the activity's decor view. Causing screenshots to look as if everything is fine.)
-    
