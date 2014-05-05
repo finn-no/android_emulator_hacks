@@ -1,4 +1,12 @@
-bin/
-build/
+# Gradle
 .gradle/
-gradlew*
+build/
+
+# IntelliJ
+/.idea/*
+*.iml
+
+*~
+*.swp
+local.properties
+.DS_Store
