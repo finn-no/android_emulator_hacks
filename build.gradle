@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.android.tools.build:gradle:0.12.+'
     }
 }
 task wrapper(type: Wrapper) {
@@ -14,7 +14,7 @@ task wrapper(type: Wrapper) {
 
 android {
     defaultConfig {
-        buildToolsVersion "19.0.0"
+        buildToolsVersion "19.1.0"
         compileSdkVersion 19
         minSdkVersion 14
         targetSdkVersion 19
