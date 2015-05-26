@@ -94,6 +94,8 @@ public class Badservice extends IntentService {
         for (int volumeType : volumes) {
             audio.setStreamMute(volumeType, true);
         }
+        audio.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
+        audio.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
     }
 
 }
