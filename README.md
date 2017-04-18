@@ -21,7 +21,7 @@ adb shell am start -n no.finn.android_emulator_hacks/no.finn.android_emulator_ha
 This will make sure the keyguard is off (which sometimes, randomly, seem to be on in different emulators). It ensures the screen is on (again, sometimes it just isn't. And it turns off animations which can also cause unittests to fail).
 
 
-####Problems we had with espresso+build server:
+#### Problems we had with espresso+build server:
 
 1. emulator without --no-audio will sometimes fail, not always. Causing a crash in package acore, which will cause the tests to fail.
 2. emulator images without google services causes a "You need to install google play services" dialog, which causes tests to fail. NB : We used spoon to take screenshots to debug this particular bug, but spoon grabs the activity's decor view. Causing screenshots to look as if everything is fine.
