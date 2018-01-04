@@ -1,3 +1,7 @@
+# DEPRECATED
+Please use https://github.com/linkedin/test-butler instead
+
+
 android_emulator_hacks
 ======================
 
